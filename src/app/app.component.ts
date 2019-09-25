@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { PagesUrl } from './config/pageUrl.config';
+import { LoginService } from './service/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,25 +12,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
-  ];
-
+  appPages = PagesUrl;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private menu: MenuController,
+    private loginService: LoginService
   ) {
     this.initializeApp();
+    this.loginService.isLogin().subscribe( resp => {
+      console.log('login:', resp );
+      // this.menu.enable(resp);
+    });
   }
 
   initializeApp() {

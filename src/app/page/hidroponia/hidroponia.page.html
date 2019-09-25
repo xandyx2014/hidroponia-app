@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Hidroponia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="height: 35vh;"
+  id="mapidNosocomio"></div>
+  <ion-card *ngIf="hidroponia !== null" mode="ios">
+    <ion-card-header>
+      <ion-card-subtitle>{{hidroponia.calle}}</ion-card-subtitle>
+      <ion-card-title>{{hidroponia.zona}}</ion-card-title>
+      <ion-card-subtitle>
+          Modulos Disponibles  {{hidroponia.Modulos.length}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ng-container *ngIf="hidroponia.Modulos.length; else elseTemplate">
+          <ion-card *ngFor="let modulo of hidroponia.Modulos" mode="ios" color="primary">
+              <ion-card-header>
+                <ion-card-subtitle>Modelo: {{modulo.modelo}}</ion-card-subtitle>
+                <ion-card-title>{{modulo.nombre}}</ion-card-title>
+                
+              </ion-card-header>
+              <ion-card-content>
+                {{modulo.detalle}}
+                <ion-button (click)="irPagina(modulo)" mode="ios" expand="full" color="dark" fill="solid">
+                    <ion-icon slot="start" name="list-box"></ion-icon>
+                     datos
+                  </ion-button>
+              </ion-card-content>
+            </ion-card>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ion-card color="warning">
+          <ion-card-header>
+            <ion-card-title>No hay disponibles</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ng-template>
+      
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

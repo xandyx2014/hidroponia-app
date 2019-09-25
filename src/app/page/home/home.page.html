@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card mode="ios" class="welcome-card">
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <ion-img src="assets/slides/1.jpg"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="assets/slides/2.jpg"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="assets/slides/3.jpg"></ion-img>
+        </ion-slide>
+        <ion-slide>
+          <ion-img src="assets/slides/4.jpg"></ion-img>
+        </ion-slide>
+      </ion-slides>
+      <ion-card-header>
+        <ion-card-subtitle>Bienvenido</ion-card-subtitle>
+        <ion-card-title>Hidroponias</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+</ion-content>

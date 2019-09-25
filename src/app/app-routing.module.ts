@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,12 +10,27 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./page/home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+    path: 'hridroponias',
+    loadChildren: () => import('./page/list/list.module').then(m => m.ListPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./page/login/login.module').then(m => m.LoginPageModule) },
+  {
+    path: 'hidroponia/:id',
+    loadChildren: () => import('./page/hidroponia/hidroponia.module').then(m => m.HidroponiaPageModule)
+  },
+  { path: 'dato/:id',
+   loadChildren: () => import('./page/dato/dato.module').then(m => m.DatoPageModule)
+  },
+  {
+    path: '**', redirectTo: 'home'
   }
+
 ];
 
 @NgModule({

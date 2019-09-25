@@ -1,5 +1,7 @@
 {
   "name": "hidroponiaApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
