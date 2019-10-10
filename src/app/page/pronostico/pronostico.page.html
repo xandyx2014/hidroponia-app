@@ -1,0 +1,201 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Pronostico del Clima</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <div fxLayout="column" fxLayoutAlign="center center">
+      <ion-img  style="width: 50%; margin-top: 1em;" src="assets/bosque.svg"></ion-img>
+      <ion-card color="light" style="width: 95%;">
+        <ion-card-header>
+          <ion-card-subtitle>Pronostico actual del Clima</ion-card-subtitle>
+          <ion-card-title>Resultados</ion-card-title>
+        </ion-card-header>
+        <ion-card-content >
+          <ng-container *ngIf="pronostico; else elseTemplate">
+              <ion-list lines="inset">
+            
+                  <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Temperatura</ion-label>
+                    </ion-item-divider>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/sol.gif" />
+                      </ion-avatar>
+                      <ion-label color="primary">Actual</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">{{pronostico.main.temp}} C</ion-badge>
+                    </ion-item>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/cold.svg" />
+                      </ion-avatar>
+                      <ion-label color="primary">Minima</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">{{pronostico.main.temp_min}} C</ion-badge>
+                    </ion-item>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/hot.svg" />
+                      </ion-avatar>
+                      <ion-label color="primary">Maxima</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">{{pronostico.main.temp_max}} C</ion-badge>
+                    </ion-item>
+                  
+                  </ion-item-group>
+                  <ion-item lines="inset">
+                    <ion-avatar>
+                      <img src="assets/mundo.svg" />
+                    </ion-avatar>
+                    <ion-label color="primary">Presion</ion-label>
+                    <ion-badge color="primary" mode="ios" slot="end">{{pronostico.main.pressure}} hPa</ion-badge>
+                  </ion-item>
+                  <ion-item>
+                    <ion-avatar>
+                      <img src="assets/gotas.svg" />
+                    </ion-avatar>
+                    <ion-label color="primary">Humedad</ion-label>
+                    <ion-badge color="primary" mode="ios" slot="end">{{pronostico.main.humidity}} %</ion-badge>
+                  </ion-item>
+                  
+                <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Viento</ion-label>
+                    </ion-item-divider>
+                  
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/viento.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Velocidad</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">{{pronostico.wind.speed}} m/s</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/rafaga.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Rafaga</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">{{pronostico.wind.gust}} m/s</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/direccion.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Direccion</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">{{pronostico.wind.deg}}° </ion-badge>
+                    </ion-item>
+                  </ion-item-group>
+                  <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Nubes</ion-label>
+                    </ion-item-divider>
+                  
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/nube.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Abundancia</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">{{pronostico.clouds.all}}% </ion-badge>
+                    </ion-item>
+      
+                  </ion-item-group>
+                </ion-list>
+          </ng-container>
+          <ng-template #elseTemplate>
+              <ion-list style="width: 100%" lines="inset">
+            
+                  <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Temperatura</ion-label>
+                    </ion-item-divider>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/sol.gif" />
+                      </ion-avatar>
+                      <ion-label color="primary">Actual</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">... C</ion-badge>
+                    </ion-item>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/cold.svg" />
+                      </ion-avatar>
+                      <ion-label color="primary">Minima</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">... C</ion-badge>
+                    </ion-item>
+                    <ion-item lines="inset">
+                      <ion-avatar>
+                        <img src="assets/hot.svg" />
+                      </ion-avatar>
+                      <ion-label color="primary">Max</ion-label>
+                      <ion-badge color="primary" mode="ios" slot="end">... C</ion-badge>
+                    </ion-item>
+                  
+                  </ion-item-group>
+                  <ion-item lines="inset">
+                    <ion-avatar>
+                      <img src="assets/mundo.svg" />
+                    </ion-avatar>
+                    <ion-label color="primary">Presion</ion-label>
+                    <ion-badge color="primary" mode="ios" slot="end">... hPa</ion-badge>
+                  </ion-item>
+                  <ion-item>
+                    <ion-avatar>
+                      <img src="assets/gotas.svg" />
+                    </ion-avatar>
+                    <ion-label color="primary">Humedad</ion-label>
+                    <ion-badge color="primary" mode="ios" slot="end">... %</ion-badge>
+                  </ion-item>
+                  
+                <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Viento</ion-label>
+                    </ion-item-divider>
+                  
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/viento.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Velocidad</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">... m/s</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/rafaga.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Rafaga</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">... m/s</ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/direccion.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Direccion</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">...° </ion-badge>
+                    </ion-item>
+                  </ion-item-group>
+                  <ion-item-group>
+                    <ion-item-divider>
+                      <ion-label>Nubes</ion-label>
+                    </ion-item-divider>
+                  
+                    <ion-item>
+                        <ion-avatar>
+                          <img src="assets/nube.svg" />
+                        </ion-avatar>
+                        <ion-label color="primary">Abundancia</ion-label>
+                        <ion-badge color="primary" mode="ios" slot="end">...% </ion-badge>
+                    </ion-item>
+      
+                  </ion-item-group>
+                </ion-list>
+          </ng-template>
+          
+          
+        </ion-card-content>
+      </ion-card>
+  </div>
+  
+</ion-content>

@@ -36,6 +36,9 @@ export class HidroponiaPage implements OnInit {
       });
   }
   crearMapa(latitud, longitud) {
+    if ( this.myMap ) {
+      this.myMap.remove();
+    }
     this.myMap = L.map('mapidNosocomio',
      {
        fadeAnimation: true
@@ -52,11 +55,22 @@ export class HidroponiaPage implements OnInit {
     L.marker([latitud, longitud], this.iconImg).addTo(this.myMap);
   }
   ionViewWillLeave() {
-    this.myMap.off();
-    this.myMap.remove();
+    /* this.myMap.off();
+    this.myMap.remove(); */
   }
   irPagina(item: Modulo) {
+    this.myMap.off();
+    this.myMap.remove();
     this.router.navigate(['/dato', item.id]);
+  }
+  irModuloFecha(item: Modulo) {
+    this.router.navigate(['/modulo-fecha', item.id]);
+  }
+  verPronostico() {
+    this.router.navigate(['/pronostico'], {queryParams: {
+      lat: this.hidroponia.latitud,
+      lon: this.hidroponia.longitud
+    }});
   }
 
 }

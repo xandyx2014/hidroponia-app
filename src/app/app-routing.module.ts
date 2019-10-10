@@ -27,10 +27,11 @@ const routes: Routes = [
   { path: 'dato/:id',
    loadChildren: () => import('./page/dato/dato.module').then(m => m.DatoPageModule)
   },
+  { path: 'modulo-fecha/:id', loadChildren: () => import('./page/modulo-fecha/modulo-fecha.module').then(m => m.ModuloFechaPageModule) },
+  { path: 'pronostico', loadChildren: () => import('./page/pronostico/pronostico.module').then(m => m.PronosticoPageModule) },
   {
     path: '**', redirectTo: 'home'
   }
-
 ];
 
 @NgModule({

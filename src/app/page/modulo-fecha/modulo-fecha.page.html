@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Reportes por fechas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card mode="ios">
+    <ion-card-header>
+      <ion-card-title>Modulo</ion-card-title>
+      <ion-card-subtitle>Seleccione la fecha</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="form">
+        <ion-item>
+            <ion-label>Desde</ion-label>
+            <ion-datetime formControlName="desde" displayFormat="YYYY-MM-DD" placeholder="Selecciona una fecha"  doneText="Salir" cancelText="Cancelar" ></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Hasta</ion-label>
+            <ion-datetime formControlName="hasta" displayFormat="YYYY-MM-DD" placeholder="Selecciona una fecha" doneText="Salir" cancelText="Cancelar" ></ion-datetime>
+          </ion-item>
+          <ion-button (click)="buscar()" expand="full" fill="solid" [disabled]="form.invalid">
+            <ion-icon name="search"></ion-icon>
+            Buscar
+          </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  
+  <ng-container *ngIf="modulo">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Datos del modulo</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-icon slot="start" name="clipboard"></ion-icon>
+              <ion-label color="primary">Nombre:</ion-label>
+              <ion-label slot="end">{{modulo.nombre}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="document"></ion-icon>
+              <ion-label color="primary">Modelo:</ion-label>
+              <ion-label slot="end">{{modulo.modelo}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="list-box"></ion-icon>
+              <ion-label color="primary">Detalle:</ion-label>
+              <ion-label slot="end">{{modulo.detalle}}</ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-label color="primary">Datos</ion-label>
+          <ion-slides pager="true" [options]="slideOpts">
+              <ion-slide  *ngFor="let item of modulo.Datos; let i = index">
+                  <ion-card>
+                      <ion-card-header>
+                        <ion-card-subtitle>Fecha: {{item.fecha | date:'yyyy-MM-dd'}}</ion-card-subtitle>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <ion-list>
+                          <ion-item>
+                            <ion-label slot="start" color="primary">Luz: </ion-label>
+                            <ion-label>{{item.luz}}</ion-label>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label slot="start" color="primary">Ph: </ion-label>
+                            <ion-label>{{item.ph}}</ion-label>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label slot="start" color="primary">Solucion: </ion-label>
+                            <ion-label>{{item.solucion}}</ion-label>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label slot="start" color="primary">Temperatura: </ion-label>
+                            <ion-label>{{item.temperatura}}</ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ion-card-content>
+                    </ion-card>
+              </ion-slide>
+          </ion-slides>
+          <ion-list>
+              <ion-list-header>
+                  <ion-label color="primary">Promedio</ion-label>
+                </ion-list-header>
+            <ion-item>
+              <ion-icon slot="start" name="thermometer"></ion-icon>
+              <ion-label color="primary">Temperatura:</ion-label>
+              <ion-label slot="end">{{ devolverPromedio(promedioDato.temperatura) }}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="color-fill"></ion-icon>
+              <ion-label color="primary">Ph:</ion-label>
+              <ion-label slot="end">{{ devolverPromedio(promedioDato.ph) }}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="flask"></ion-icon>
+              <ion-label color="primary">Solucion:</ion-label>
+              <ion-label slot="end">{{ devolverPromedio(promedioDato.solucion) }}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="sunny"></ion-icon>
+              <ion-label color="primary">Luz:</ion-label>
+              <ion-label slot="end">{{ devolverPromedio(promedioDato.luz) }}</ion-label>
+            </ion-item>
+          </ion-list>
+          <app-barchart
+          style="height: 300px;"
+          title="Temperatura"
+          color="#fa5757"
+          [labels]="devolverDato(modulo.Datos, 'fecha')"
+          [dates]="devolverDato(modulo.Datos, 'temperatura')"></app-barchart>
+          <app-barchart
+          style="height: 300px;"
+          title="Luz"
+          color="#a9c7c9"
+          [labels]="devolverDato(modulo.Datos, 'fecha')"
+          [dates]="devolverDato(modulo.Datos, 'luz')"></app-barchart>
+          <app-barchart
+          style="height: 300px;"
+          title="Ph"
+          color="#d5f74a"
+          [labels]="devolverDato(modulo.Datos, 'fecha')"
+          [dates]="devolverDato(modulo.Datos, 'ph')"></app-barchart>
+          <app-barchart
+          style="height: 300px;"
+          title="Solucion"
+          color="#57f2fa"
+          [labels]="devolverDato(modulo.Datos, 'fecha')"
+          [dates]="devolverDato(modulo.Datos, 'solucion')"></app-barchart>
+          <ion-button (click)="verPdf()" expand="full">
+            <ion-icon name="bookmarks"></ion-icon>
+            Ver Pdf
+          </ion-button>
+           
+          
+          
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="okey">
+    <ion-card color="warning">
+      <ion-card-header>
+        <ion-card-subtitle>No hay datos</ion-card-subtitle>
+        <ion-card-title>No disponible</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ng-container>
+  
+</ion-content>

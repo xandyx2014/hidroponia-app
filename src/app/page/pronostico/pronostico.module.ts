@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { PronosticoPage } from './pronostico.page';
 
-import { DatoPage } from './dato.page';
-import { ChartsModule } from 'ng2-charts';
 const routes: Routes = [
   {
     path: '',
-    component: DatoPage
+    component: PronosticoPage
   }
 ];
 
@@ -19,9 +19,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ChartsModule,
+    FlexLayoutModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DatoPage]
+  declarations: [PronosticoPage]
 })
-export class DatoPageModule {}
+export class PronosticoPageModule {}

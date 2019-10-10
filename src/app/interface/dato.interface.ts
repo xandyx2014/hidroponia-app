@@ -4,13 +4,13 @@ export interface RespDato {
 }
 
 export interface Dato {
-  id: number;
-  temperatura: string;
-  ph: string;
-  fecha: string;
-  solucion: string;
-  luz: string;
-  id_modulo: number;
-  createdAt: string;
-  updatedAt: string;
+  id?: number;
+  temperatura?: string | number;
+  ph?: string | number;
+  fecha?: string;
+  solucion?: string | number;
+  luz?: string | number;
+  id_modulo?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }

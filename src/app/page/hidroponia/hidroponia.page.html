@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,10 +7,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="success">
+   <!-- fab placed to the top end -->
+   <ion-fab (click)="verPronostico()"  vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button  color="warning">
+          <ion-icon name="cloud-outline"></ion-icon>
+          <!-- <ion-icon  name="partly-sunny"></ion-icon> -->
+      </ion-fab-button>
+    </ion-fab>
+  
   <div style="height: 35vh;"
   id="mapidNosocomio"></div>
-  <ion-card *ngIf="hidroponia !== null" mode="ios">
+  <ion-card style="width: 90%;" color="light" *ngIf="hidroponia !== null" mode="ios">
     <ion-card-header>
       <ion-card-subtitle>{{hidroponia.calle}}</ion-card-subtitle>
       <ion-card-title>{{hidroponia.zona}}</ion-card-title>
@@ -20,7 +28,7 @@
     </ion-card-header>
     <ion-card-content>
       <ng-container *ngIf="hidroponia.Modulos.length; else elseTemplate">
-          <ion-card *ngFor="let modulo of hidroponia.Modulos" mode="ios" color="primary">
+          <ion-card  *ngFor="let modulo of hidroponia.Modulos" mode="ios" >
               <ion-card-header>
                 <ion-card-subtitle>Modelo: {{modulo.modelo}}</ion-card-subtitle>
                 <ion-card-title>{{modulo.nombre}}</ion-card-title>
@@ -28,10 +36,14 @@
               </ion-card-header>
               <ion-card-content>
                 {{modulo.detalle}}
-                <ion-button (click)="irPagina(modulo)" mode="ios" expand="full" color="dark" fill="solid">
+                <ion-button (click)="irPagina(modulo)" mode="ios"  color="primary" fill="solid" expand="full">
                     <ion-icon slot="start" name="list-box"></ion-icon>
                      datos
-                  </ion-button>
+                </ion-button>
+                <ion-button (click)="irModuloFecha(modulo)"  color="primary" fill="solid" expand="full">
+                    <ion-icon slot="start" name="calendar"></ion-icon>
+                     datos Fecha
+                </ion-button>
               </ion-card-content>
             </ion-card>
       </ng-container>
@@ -47,3 +59,4 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+ 

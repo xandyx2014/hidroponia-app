@@ -1,3 +1,8 @@
+import { Dato } from './dato.interface';
+export interface RespuestaModuloFecha {
+  ok: boolean;
+  data: Modulo;
+}
 export interface Modulo {
   id: number;
   nombre: string;
@@ -6,4 +11,7 @@ export interface Modulo {
   id_hidroponia: number;
   createdAt: string;
   updatedAt: string;
+  Datos?: Dato[];
 }
+
+

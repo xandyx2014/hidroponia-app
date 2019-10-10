@@ -53,6 +53,28 @@
         </ion-list>
     </ion-card-content>
   </ion-card>
+  <ion-card *ngIf="dato">
+      <ion-card-header>
+        <ion-card-subtitle>Grafico</ion-card-subtitle>
+        <ion-card-title>medidas actuales</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [colors]="lineChartColors"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        [chartType]="lineChartType">
+            </canvas>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+  </ion-card>
   <ng-template #elseTemplate>
     <ion-card color="warning">
       <ion-card-header>
