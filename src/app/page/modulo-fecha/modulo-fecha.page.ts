@@ -20,6 +20,7 @@ export class ModuloFechaPage implements OnInit {
   modulo: Modulo = null;
   subscription = new Subscription();
   okey = false;
+  capturedSnapURL: string;
   slideOpts = {
     speed: 400
   };
@@ -30,6 +31,8 @@ export class ModuloFechaPage implements OnInit {
 
   ngOnInit() {
     this.crearFormulario();
+  }
+  verFecha() {
   }
   crearFormulario() {
     this.form = this.fb.group({
@@ -52,7 +55,7 @@ export class ModuloFechaPage implements OnInit {
               loading.dismiss();
               console.log( resp );
               this.modulo = resp.data;
-              if (this.modulo) {
+              if (this.modulo.Datos.length > 0) {
                 this.promedioDato = this.devolverSumatoria(this.modulo.Datos);
               }
               this.okey = !resp.ok;

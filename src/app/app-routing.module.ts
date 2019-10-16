@@ -29,6 +29,7 @@ const routes: Routes = [
   },
   { path: 'modulo-fecha/:id', loadChildren: () => import('./page/modulo-fecha/modulo-fecha.module').then(m => m.ModuloFechaPageModule) },
   { path: 'pronostico', loadChildren: () => import('./page/pronostico/pronostico.module').then(m => m.PronosticoPageModule) },
+  { path: 'notificacion/:id', loadChildren: () => import('./page/notificacion/notificacion.module').then(m => m.NotificacionPageModule) },
   {
     path: '**', redirectTo: 'home'
   }

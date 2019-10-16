@@ -44,7 +44,7 @@ export class HidroponiaPage implements OnInit {
        fadeAnimation: true
      }
     ).setView([latitud, longitud], 13);
-    L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
       attribution: 'CIDIT',
       maxZoom: 28,
     }).addTo(this.myMap);
@@ -65,6 +65,9 @@ export class HidroponiaPage implements OnInit {
   }
   irModuloFecha(item: Modulo) {
     this.router.navigate(['/modulo-fecha', item.id]);
+  }
+  irNotificacion(item: Modulo) {
+    this.router.navigate(['/notificacion', item.id]);
   }
   verPronostico() {
     this.router.navigate(['/pronostico'], {queryParams: {

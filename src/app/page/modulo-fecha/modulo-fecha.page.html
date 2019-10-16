@@ -27,7 +27,11 @@
             <ion-icon name="search"></ion-icon>
             Buscar
           </ion-button>
+          <ion-button (click)="verFecha()">
+            Click me
+          </ion-button>
       </form>
+      <img  *ngIf="capturedSnapURL" [src]="capturedSnapURL" />
     </ion-card-content>
   </ion-card>
   
@@ -84,7 +88,7 @@
                     </ion-card>
               </ion-slide>
           </ion-slides>
-          <ion-list>
+          <ion-list *ngIf="modulo?.Datos.length">
               <ion-list-header>
                   <ion-label color="primary">Promedio</ion-label>
                 </ion-list-header>
@@ -143,12 +147,19 @@
       </ion-card-content>
     </ion-card>
   </ng-container>
-  <ng-container *ngIf="okey">
-    <ion-card color="warning">
-      <ion-card-header>
-        <ion-card-subtitle>No hay datos</ion-card-subtitle>
-        <ion-card-title>No disponible</ion-card-title>
-      </ion-card-header>
+  <ng-container *ngIf="modulo === undefined || modulo === null">
+    <ion-card>
+      <ion-card-content>
+          <ion-item>
+            <ion-thumbnail slot="start">
+                <img src="assets/information.svg" alt="" srcset="">
+            </ion-thumbnail>
+              <ion-label>
+                <h2>No hay datos disponibles</h2>
+                <h3>intente buscar por otra fecha</h3>
+              </ion-label>
+            </ion-item>
+      </ion-card-content>
     </ion-card>
   </ng-container>
   

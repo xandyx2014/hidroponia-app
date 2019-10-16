@@ -7,10 +7,13 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+        <div>
+          <img style="max-height: 180px; width: 100%;" src="assets/logo.jpg" alt="">
+        </div>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon" ></ion-icon>
+              <ion-icon color="primary" slot="start" [name]="p.icon" ></ion-icon>
               <ion-label color="primary">
                 {{p.title}}
               </ion-label>

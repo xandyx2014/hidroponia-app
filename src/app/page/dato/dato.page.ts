@@ -56,7 +56,6 @@ export class DatoPage implements OnInit {
       this.activatedRoute.params.subscribe( ( {id} ) => {
         this.subscription.add(
           this.datoService.showDato(id).subscribe(resp => {
-            console.log( resp );
             this.dato = resp.data;
             this.agregarDatos(resp.data.temperatura, resp.data.fecha);
           })

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="success">
+<ion-content>
    <!-- fab placed to the top end -->
    <ion-fab (click)="verPronostico()"  vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button  color="warning">
@@ -43,6 +43,10 @@
                 <ion-button (click)="irModuloFecha(modulo)"  color="primary" fill="solid" expand="full">
                     <ion-icon slot="start" name="calendar"></ion-icon>
                      datos Fecha
+                </ion-button>
+                <ion-button (click)="irNotificacion(modulo)"  color="primary" fill="solid" expand="full">
+                  <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+                     Notificaciones
                 </ion-button>
               </ion-card-content>
             </ion-card>

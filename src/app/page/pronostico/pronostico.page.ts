@@ -25,7 +25,6 @@ export class PronosticoPage implements OnInit {
       .pipe(flatMap( ({lat, lon}) => this.pronosticoService.consultarPronostico(lat, lon) ) )
       .subscribe( resp => {
         this.pronostico = resp;
-        console.log(  this.pronostico );
       })
     );
   }
