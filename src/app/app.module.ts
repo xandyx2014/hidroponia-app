@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { HandleErrorInterceptor } from './interceptor/handleError.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +23,7 @@ import { HandleErrorInterceptor } from './interceptor/handleError.service';
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,
