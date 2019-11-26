@@ -1,9 +1,9 @@
 {
   "name": "hidroponia",
-  "short_name": "app",
-  "theme_color": "#3880ff",
-  "background_color": "#fafafa",
-  "display": "standalone",
+  "short_name": "apphidro",
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3",
+  "display": "minimal-ui",
   "scope": "/",
   "start_url": "/",
   "icons": [

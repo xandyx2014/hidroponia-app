@@ -22,7 +22,7 @@
         </ion-segment-button>
       </ion-segment>
   <ng-container *ngIf="modulo.length; else elseTemplate">
-    <ion-card *ngFor="let item of modulo">
+    <ion-card *ngFor="let item of modulo" (click)="presentActionSheet(item)">
       <ion-card-content>
           <ion-item>
             <ion-thumbnail slot="start">

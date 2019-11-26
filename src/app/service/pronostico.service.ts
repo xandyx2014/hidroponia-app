@@ -21,6 +21,6 @@ export class PronosticoService {
         lon,
       }
     });
-    return this.http.get<RespuestaPronostico>(URL_HOST_OPENW, {params}).pipe(delay(2000));
+    return this.http.get<RespuestaPronostico>(URL_HOST_OPENW, {params});
   }
 }

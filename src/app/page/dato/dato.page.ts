@@ -64,7 +64,6 @@ export class DatoPage implements OnInit {
      );
   }
   agregarDatos(numero, fecha) {
-
       this.lineChartData.forEach((x) => {
         const data: number[] = x.data as number[];
         if (data.length === 5) {
@@ -78,7 +77,6 @@ export class DatoPage implements OnInit {
       } else {
         this.lineChartLabels.push(`${format(parseISO(fecha), 'dd/MM')}`);
       }
-
   }
   ionViewWillLeave() {
     console.log( 'unsubscribe' );
