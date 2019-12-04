@@ -22,20 +22,24 @@
         </ion-segment-button>
       </ion-segment>
   <ng-container *ngIf="modulo.length; else elseTemplate">
-    <ion-card *ngFor="let item of modulo" (click)="presentActionSheet(item)">
-      <ion-card-content>
-          <ion-item>
-            <ion-thumbnail slot="start">
-                <img src="assets/information.svg" alt="" srcset="">
-            </ion-thumbnail>
-              <ion-label>
-                <h2>{{ item.nombre }}</h2>
-                <h3>{{ item.tipo }}</h3>
-                <p>{{ item.descripcion }}</p>
-              </ion-label>
-            </ion-item>
-      </ion-card-content>
-    </ion-card>
+    <ion-virtual-scroll [items]="modulo">
+      <ion-item *virtualItem="let item">
+          <ion-card (click)="presentActionSheet(item)">
+              <ion-card-content>
+                  <ion-item>
+                    <ion-thumbnail slot="start">
+                        <img src="assets/information.svg" alt="" srcset="">
+                    </ion-thumbnail>
+                      <ion-label>
+                        <h2>{{ item.nombre }}</h2>
+                        <h3>{{ item.tipo }}</h3>
+                        <p>{{ item.descripcion }}</p>
+                      </ion-label>
+                    </ion-item>
+              </ion-card-content>
+            </ion-card>
+      </ion-item>
+    </ion-virtual-scroll>
   </ng-container>
   <ng-template #elseTemplate>
     <ion-card>
@@ -45,9 +49,8 @@
                   <img src="assets/information.svg" alt="" srcset="">
               </ion-thumbnail>
                 <ion-label>
-                  <h2><ion-skeleton-text width="35%"></ion-skeleton-text></h2>
-                  <h3><ion-skeleton-text width="40%"></ion-skeleton-text></h3>
-                  <p><ion-skeleton-text width="80%"></ion-skeleton-text></p>
+                  <h2>No Encontrado</h2>
+                  
                 </ion-label>
               </ion-item>
       </ion-card-content>

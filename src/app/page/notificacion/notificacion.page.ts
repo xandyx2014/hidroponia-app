@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs/operators';
 import { AlertaService } from 'src/app/service/alerta.service';
 import { Notificacion } from 'src/app/interface/notificacion.interface';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import { NotificationService } from 'src/app/service/notification.service';
 import { format } from 'date-fns';
 import * as EmailValidator from 'email-validator';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-notificacion',
   templateUrl: './notificacion.page.html',
@@ -14,32 +15,43 @@ import * as EmailValidator from 'email-validator';
 })
 export class NotificacionPage implements OnInit {
   idModulo;
+  valueSegment = 'temperatura';
   modulo: Notificacion[] = [];
-  constructor(private activatedRoute: ActivatedRoute,
-              private actionSheetController: ActionSheetController,
-              private notificationService: NotificationService,
-              private alertService: AlertaService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private actionSheetController: ActionSheetController,
+    private notificationService: NotificationService,
+    private loadingController: LoadingController,
+    private alertService: AlertaService) { }
 
   ngOnInit() {
   }
   ionViewWillEnter() {
+    this.obtenerDatos();
+  }
+  obtenerDatos(tipo = 'temperatura') {
     this.activatedRoute.params.pipe(
-      switchMap( ( { id } ) => {
+      switchMap(({ id }) => {
         this.idModulo = id;
-        return this.buscarModulo(this.idModulo, 'temperatura');
+        return this.buscarModulo(this.idModulo, tipo);
       })
-    ).subscribe( ( resp ) => {
+    ).subscribe((resp) => {
       this.modulo = resp.data;
     });
   }
   buscarModulo(id, tipo) {
     return this.alertService.mostrarNotificaciones(id, tipo);
   }
-  segmentChanged(event) {
-    // console.log( event );
-    this.buscarModulo(this.idModulo, event.detail.value).pipe( take(1))
-      .subscribe( ( resp ) => {
+  async segmentChanged(event) {
+    this.valueSegment = event.detail.value;
+    const loading = await this.loadingController.create({
+      message: 'Cargando..'
+    });
+    await loading.present();
+    this.buscarModulo(this.idModulo, event.detail.value).pipe(take(1))
+      .subscribe((resp) => {
         this.modulo = resp.data;
+        loading.dismiss();
       });
   }
   async presentActionSheet(notificacion: Notificacion) {
@@ -51,7 +63,7 @@ export class NotificacionPage implements OnInit {
         role: 'destructive',
         icon: 'trash',
         handler: () => {
-          console.log('Delete clicked');
+          this.confirmarEliminar(notificacion);
         }
       }, {
         text: 'Ver',
@@ -107,12 +119,12 @@ export class NotificacionPage implements OnInit {
                 }
               }, {
                 text: 'Ok',
-                handler: ({email}) => {
-                  if ( EmailValidator.validate(email)) {
+                handler: ({ email }) => {
+                  if (EmailValidator.validate(email)) {
                     this.alertService.enviarEmail(email, notificacion.descripcion)
-                    .subscribe(() => {
-                      this.notificationService.presentToast('Enviado correctamente');
-                    });
+                      .subscribe(() => {
+                        this.notificationService.presentToast('Enviado correctamente');
+                      });
                   } else {
                     this.notificationService.presentToast('El email no es valido');
                   }
@@ -132,5 +144,29 @@ export class NotificacionPage implements OnInit {
       }]
     });
     await actionSheet.present();
+  }
+  async confirmarEliminar(notificacion: Notificacion) {
+    await this.notificationService.presentAlert({
+      header: 'Confirmar!',
+      message: 'Desea Eliminar <strong>notificacion</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.alertService.borrarNotificacion(notificacion.id).subscribe(async (value: Notificacion) => {
+              await this.notificationService.presentToast(`Borrado ${value.tipo}`);
+              this.obtenerDatos(this.valueSegment);
+            });
+          }
+        }
+      ]
+    });
   }
 }

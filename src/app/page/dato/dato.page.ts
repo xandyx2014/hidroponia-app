@@ -6,6 +6,7 @@ import { Dato } from 'src/app/interface/dato.interface';
 import { ChartDataSets } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import { format, parseISO } from 'date-fns';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-dato',
   templateUrl: './dato.page.html',
@@ -46,40 +47,48 @@ export class DatoPage implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartLabels: Label[] = ['0'];
-  constructor(private datoService: DatoService,
-              private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private datoService: DatoService,
+    private loadingController: LoadingController,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando..',
+      mode: 'md'
+    });
+    await loading.present();
     this.subscription.add(
-      this.activatedRoute.params.subscribe( ( {id} ) => {
+      this.activatedRoute.params.subscribe(({ id }) => {
         this.subscription.add(
           this.datoService.showDato(id).subscribe(resp => {
             this.dato = resp.data;
+            loading.dismiss();
             this.agregarDatos(resp.data.temperatura, resp.data.fecha);
           })
         );
       })
-     );
+    );
   }
   agregarDatos(numero, fecha) {
-      this.lineChartData.forEach((x) => {
-        const data: number[] = x.data as number[];
-        if (data.length === 5) {
-          data.shift();
-        } else {
-          data.push(numero);
-        }
-      });
-      if (this.lineChartLabels.length === 5) {
-        this.lineChartLabels.shift();
+    this.lineChartData.forEach((x) => {
+      const data: number[] = x.data as number[];
+      if (data.length === 5) {
+        data.shift();
       } else {
-        this.lineChartLabels.push(`${format(parseISO(fecha), 'dd/MM')}`);
+        data.push(numero);
       }
+    });
+    if (this.lineChartLabels.length === 5) {
+      this.lineChartLabels.shift();
+    } else {
+      this.lineChartLabels.push(`${format(parseISO(fecha), 'dd/MM')}`);
+    }
   }
   ionViewWillLeave() {
-    console.log( 'unsubscribe' );
+    console.log('unsubscribe');
     this.subscription.unsubscribe();
   }
 }
